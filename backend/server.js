@@ -1,15 +1,16 @@
 // server.js
-const express = require('express');
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-const connectDB = require('./db');
-const NameModel = require('./models/Name');
+const express = require("express");
+const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+const connectDB = require("./db");
+const NameModel = require("./models/Name");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-
+app.use(cors());
 connectDB();
 
 const jwtSecret = "YOUR_JWT_SECRET";
