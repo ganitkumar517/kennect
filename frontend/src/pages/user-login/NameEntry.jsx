@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useNamePostMutation } from '../../store/api';
 
 const NameEntry = () => {
   const [name, setName] = useState('');
+  const [addName, { isLading }] = useNamePostMutation()
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const handleNameSubmit = () => {
+    addName({ name: name })
+      .then((res) => localStorage.getItem("access"))
+      .catch((err) => console.log(err))
   };
 
   return (
@@ -14,13 +18,13 @@ const NameEntry = () => {
         <input
           type="text"
           value={name}
-          onChange={handleNameChange}
+          onChange={(e) => setName(e.target.value)}
           placeholder="Your Name"
           className="w-full p-2 border border-gray-300 rounded mb-4"
         />
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
-          onClick={() => alert(`Hello, ${name}!`)}
+          onClick={handleNameSubmit}
         >
           Submit
         </button>
