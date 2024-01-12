@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { useNamePostMutation } from '../../store/api';
+import { useNavigate } from 'react-router';
 
 const NameEntry = () => {
   const [name, setName] = useState('');
   const [addName, { isLading }] = useNamePostMutation()
+  const navigate = useNavigate();
 
   const handleNameSubmit = () => {
     addName({ name: name })
-      .then((res) => localStorage.getItem("access"))
+      .then((res) => {
+        localStorage.setItem("access", res.data.token)
+        navigate('/new-post')
+      })
       .catch((err) => console.log(err))
   };
 

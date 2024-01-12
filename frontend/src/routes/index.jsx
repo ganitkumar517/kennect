@@ -15,10 +15,10 @@ function FinalRoute({ route }) {
 
       useEffect(() => {
         if (!route.public && !isLoggedIn()) {
-          navigate("/login");
+          navigate("/");
         }
 
-        if (isLoggedIn() && route.path == "/login") {
+        if (isLoggedIn() && route.path == "/") {
           navigate("/");
         }
       }, []);

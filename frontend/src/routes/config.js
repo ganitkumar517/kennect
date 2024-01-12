@@ -16,7 +16,7 @@ export const pageRoutes = [
   {
     path: "/new-post",
     component: lazy(() => import("../pages/post/NewPost")),
-    public: true,
+    public: false,
   },
 ];
 
