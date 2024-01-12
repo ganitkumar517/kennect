@@ -13,5 +13,10 @@ export const pageRoutes = [
     component: lazy(() => import("../pages/user-login/NameEntry")),
     public: true,
   },
+  {
+    path: "/new-post",
+    component: lazy(() => import("../pages/post/NewPost")),
+    public: true,
+  },
 ];
 
