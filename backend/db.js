@@ -6,7 +6,7 @@ const connectDB = async () => {
     const mongoURL = "mongodb+srv://jeetmehra517:Ganit%40517@cluster0.kw9ft7w.mongodb.net/?retryWrites=true&w=majority";
     await mongoose.connect(mongoURL, {
       useUnifiedTopology: true,
-    )
+    });
 
     console.log('Connected to MongoDB');
   } catch (error) {
