@@ -55,17 +55,28 @@ app.post("/api/posts", async (req, res) => {
 });
 
 app.get("/api/posts", async (req, res) => {
-  try {
-    const postsWithComments = await PostModel.find();
-
-    const formattedPosts = postsWithComments.map((post) => ({
-      id: post._id,
-      name: post.name,
-      userMessage: post.userMessage,
-      comments: post.comments,
-    }));
-
-    res.status(200).json(formattedPosts);
+    try {
+      const { search } = req.query;
+  
+      let query = {};
+  
+      if (search) {
+        query.$or = [
+          { name: { $regex: search, $options: 'i' } },
+          { 'comments.comment': { $regex: search, $options: 'i' } },
+        ];
+      }
+  
+      const postsWithComments = await PostModel.find(query);
+  
+      const formattedPosts = postsWithComments.map((post) => ({
+        id: post._id,
+        name: post.name,
+        userMessage: post.userMessage,
+        comments: post.comments,
+      }));
+  
+      res.status(200).json(formattedPosts);
   } catch (error) {
     console.log("Error:", error);
     res.status(500).json({ error: "Internal Server Error" });

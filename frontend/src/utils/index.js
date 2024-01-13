@@ -5,8 +5,6 @@ export const isLoggedIn = () => {
   
 export const logOut = () => {
     localStorage.removeItem("access");
-    localStorage.removeItem("refresh");
-    localStorage.removeItem("userId");
     window.location.reload();
   };
   

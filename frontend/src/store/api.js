@@ -22,9 +22,10 @@ export const pokemonApi = createApi({
       invalidatesTags: ["post"],
     }),
     getPosts: builder.query({
-      query: () => ({
+      query: (params) => ({
         method: "get",
         url: "/posts",
+        params,
       }),
       providesTags: ["post"],
     }),
