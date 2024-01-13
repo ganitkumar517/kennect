@@ -1,17 +1,17 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+// db.js
+const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const mongoURL = process.env.DB_URL;
+    const mongoURL = "mongodb+srv://jeetmehra517:Ganit%40517@cluster0.kw9ft7w.mongodb.net/?retryWrites=true&w=majority";
     await mongoose.connect(mongoURL, {
-      useNewUrlParser: true,
       useUnifiedTopology: true,
+      useNewUrlParser: true, // Remove this line in MongoDB Node.js driver version 4.0.0 and newer
     });
 
-    console.log("Connected to MongoDB");
+    console.log('Connected to MongoDB');
   } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
+    console.error('Error connecting to MongoDB:', error);
   }
 };
 
