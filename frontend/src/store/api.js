@@ -13,7 +13,20 @@ export const pokemonApi = createApi({
         body,
       }),
     }),
+    createPost: builder.mutation({
+      query: (body) => ({
+        method: "post",
+        url: "/posts",
+        body,
+      }),
+    }),
+    getPosts: builder.query({
+      query: () => ({
+        method: "get",
+        url: "/posts",
+      }),
+    }),
   }),
 });
 
-export const { useNamePostMutation } = pokemonApi;
+export const { useNamePostMutation, useCreatePostMutation, useGetPostsQuery } = pokemonApi;

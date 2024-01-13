@@ -1,12 +1,14 @@
 // NewPost.js
 import React, { useState } from 'react';
 import Comment from './Comment';
+import { useCreatePostMutation, useGetPostsQuery } from '../../store/api';
 
 const NewPost = () => {
   const [userName, setUserName] = useState('');
   const [userMessage, setUserMessage] = useState('');
-  const [posts, setPosts] = useState([]);
-
+  // const [posts, setPosts] = useState([]);
+  const [createPost, { isLoading }] = useCreatePostMutation();
+  const { data: posts, usLoading: postLoading } = useGetPostsQuery()
   const handleNameChange = (e) => {
     setUserName(e.target.value);
   };
@@ -16,34 +18,20 @@ const NewPost = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Creating a new post object
-    const newPost = {
-      userName: userName,
+    createPost({
+      name: "ganit",
       userMessage: userMessage,
-      comments: [], // Initializing an empty array for comments
-    };
-
-    // Updating the posts state with the new post
-    setPosts([...posts, newPost]);
-
-    // Clearing the form fields
-    setUserName('');
+    })
     setUserMessage('');
   };
 
   const addComment = (postId, newComment) => {
-    // Copying the posts array
     const updatedPosts = [...posts];
 
-    // Finding the post by postId
     const postIndex = updatedPosts.findIndex((post) => post.userName === postId);
 
-    // Adding the new comment to the post's comments array
     updatedPosts[postIndex].comments.push(newComment);
 
-    // Updating the state with the modified posts array
     setPosts(updatedPosts);
   };
 
@@ -60,6 +48,7 @@ const NewPost = () => {
             id="userName"
             name="userName"
             value={userName}
+            disabled
             onChange={handleNameChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
@@ -87,7 +76,6 @@ const NewPost = () => {
         </button>
       </form>
 
-      {/* Displaying the created posts */}
       <div className="mt-4">
         <h3 className="text-lg font-bold mb-2">Posts</h3>
         {posts.map((post, index) => (
