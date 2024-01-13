@@ -6,6 +6,7 @@ const connectDB = require("./db");
 const NameModel = require("./models/Name");
 const cors = require("cors");
 const PostModel = require("./models/post");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
