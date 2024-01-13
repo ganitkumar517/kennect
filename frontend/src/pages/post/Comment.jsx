@@ -1,10 +1,11 @@
 // Comment.js
 import React, { useState } from 'react';
+import { useCreateCommentMutation } from '../../store/api';
 
-const Comment = ({ postId, addComment }) => {
+const Comment = ({ postId }) => {
   const [userName, setUserName] = useState('');
   const [userMessage, setUserMessage] = useState('');
-
+  const [addComment, { isLoading }] = useCreateCommentMutation();
   const handleNameChange = (e) => {
     setUserName(e.target.value);
   };
@@ -15,17 +16,7 @@ const Comment = ({ postId, addComment }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Creating a new comment object
-    const newComment = {
-      userName: userName,
-      userMessage: userMessage,
-    };
-
-    // Passing the new comment and postId to the parent component
-    addComment(postId, newComment);
-
-    // Clearing the form fields
+    addComment({ body: { name: userName, comment: userMessage }, id: postId })
     setUserName('');
     setUserMessage('');
   };
